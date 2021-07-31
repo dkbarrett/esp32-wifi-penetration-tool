@@ -1,0 +1,15 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "site",
+  "author": "",
+  "devDependencies": {
+    "grunt": "^1.4.1",
+    "grunt-assets-inline": "^1.2.4",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-shell": "^3.0.1"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,22 @@
+body {
+    width: fit-content;
+}
+
+table,
+tr,
+th {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 10px;
+}
+
+tr:hover,
+tr.selected {
+    background-color: lightblue;
+    cursor: pointer;
+}
