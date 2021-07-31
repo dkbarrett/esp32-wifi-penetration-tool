@@ -11,16 +11,20 @@ output_filename="page_${output_name}.h"
 echo """#ifndef PAGE_${output_name^^}_H
 #define PAGE_${output_name^^}_H
 
-const char page_${output_name,,}[] =""" > $output_filename
+// This file was generated using convert_html_to_header_file.sh""" > $output_filename
 
+# Remove unnecessary whitespace and gzip
+sed ':a;$!{N;ba;};s/@/@a/g;s/\n/@n/g;s/<script/\n&/g;s/<\/script>/&\n/g' $1 \
+  | sed -r '/(^<script|<\/script>$)/!{s/@n//g;s/>\s+</></g;}' \
+  | sed ':a;$!{N;ba;};s/\n//g;s/@n/\n/g;s/@a/@/g' |
+  gzip --best > "page_${output_name}"
 
-cat $1 | sed 's/\\/\\\\/' | sed 's/http:\/\/192.168.4.1\///' | sed 's/"/\\"/g' | sed 's/ */&"/' | sed 's/$/\\n"&/' >> $output_filename
+# Write to static array
+xxd -i -u "page_${output_name}" >> $output_filename
+rm "page_${output_name}"
 
-echo """
-;
-#endif
-""" >> $output_filename
+echo -e "\n#endif" >> $output_filename
 
 pages_location="../pages"
-echo "Copying $output_filename to $pages_location/$output_filename"
-cp $output_filename $pages_location/$output_filename
+echo "Moving $output_filename to $pages_location/$output_filename"
+mv $output_filename $pages_location/$output_filename
