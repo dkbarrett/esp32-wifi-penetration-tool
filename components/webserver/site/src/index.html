@@ -11,21 +11,20 @@
     <div class="container">
         <h2 class="centered">ESP32 Wi-Fi Pentest</h2>
 
-        <div class="msg warning" id="errors">
+        <div class="msg warning" id="errors" class="hidden">
         </div>
 
-        <section id="loading" class="centered">
-        </section>
-
-        <section id="ready" style="display: none;">
+        <section id="setup" class="hidden">
             <form onSubmit="runAttack(); return false;">
                 <fieldset>
                     <legend>Select Target</legend>
-                    <div id="ap-loader" class="lds-dual-ring centered"></div>
+                    <div id="ap-loader" class="centered">
+                        <div class="lds-dual-ring"></div>
+                    </div>
                     <table id="ap-list" class="table">
                     </table>
                     <p>
-                        <button type="button" onClick="refreshAps()" class="btn btn-a btn-sm smooth">Scan</button>
+                        <button type="button" onClick="fetchAps()" class="btn btn-a btn-sm smooth">Scan</button>
                     </p>
                 </fieldset>
                 <fieldset>
@@ -57,11 +56,11 @@
             </form>
         </section>
 
-        <section id="running" style="display: none;">
+        <section id="running" class="hidden">
             Time elapsed: <span id="running-progress"></span>
         </section>
 
-        <section id="result" style="display: none;">
+        <section id="results" class="hidden">
             <div id="result-meta">Loading result.. Please wait</div>
             <div id="result-content"></div>
             <button type="button" onClick="resetAttack()">New attack</button>

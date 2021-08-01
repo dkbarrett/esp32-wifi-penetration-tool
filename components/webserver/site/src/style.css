@@ -8,11 +8,19 @@ tr:hover {
 }
 
 tr.selected {
-    background-color: lightskyblue;
+  background-color: lightskyblue;
 }
 
 .centered {
     text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
 }
 
 div.container {
