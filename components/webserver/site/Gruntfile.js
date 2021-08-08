@@ -6,7 +6,7 @@ module.exports = function (grunt) {
             },
             all: {
                 files: {
-                    "dist/index.html": "build/index.html"
+                    "build/index.min.html": "build/index.html"
                 }
             }
         },
@@ -16,29 +16,15 @@ module.exports = function (grunt) {
                 dest: 'build/style.css'
             }
         },
-        htmlmin: {                                     // Task
-            dist: {                                      // Target
-                options: {                                 // Target options
+        htmlmin: {
+            dist: {
+                options: {
                     removeComments: true,
                     collapseWhitespace: true
                 },
-                files: {                                   // Dictionary of files
-                    'build/index.html': 'src/index.html',     // 'destination': 'source'
+                files: {
+                    'build/index.html': 'src/index.html',
                 }
-            }
-        },
-        shell: {
-            setup: {
-                command: 'mkdir build'
-            },
-            moveJs: {
-                command: 'cp src/*.js build'
-            },
-            cleanup: {
-                command: 'rm -rf build'
-            },
-            generateInclude: {
-                command: 'bash generate_include dist/index.html'
             }
         }
     });
@@ -47,16 +33,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-assets-inline');
-    grunt.loadNpmTasks('grunt-shell')
 
     // Task definitions
-    grunt.registerTask('default', [
-        'shell:setup',
-        'cssmin',
-        'htmlmin',
-        'shell:moveJs',
-        'assets_inline',
-        'shell:cleanup',
-        'shell:generateInclude'
-    ]);
+    grunt.registerTask('default', ['cssmin', 'htmlmin', 'assets_inline']);
 };

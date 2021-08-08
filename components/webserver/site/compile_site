@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Setup build directory
+rm -rf build
+mkdir build
+
+# Copy js files
+cp src/*.js build
+
+# Minify css, inline any external files into the html and minify it
+grunt
+
+cd build
+output_filename="page_index.h"
+
+echo """#ifndef PAGE_INDEX_H
+#define PAGE_INDEX_H
+
+// This file was generated using xxd""" > $output_filename
+
+# Gzip file and write to static array
+gzip --best "index.min.html" -c > "page_index"
+xxd -i -u "page_index" >> $output_filename
+
+echo -e "\n#endif" >> $output_filename
+
+pages_location="../../pages"
+echo "Moving $output_filename to $pages_location/$output_filename"
+mv $output_filename $pages_location/$output_filename
+
+cd ..
